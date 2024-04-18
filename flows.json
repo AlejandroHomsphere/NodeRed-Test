@@ -1,0 +1,132 @@
+[
+    {
+        "id": "f6f2187d.f17ca8",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "0a76adf9b4512182",
+        "type": "group",
+        "z": "f6f2187d.f17ca8",
+        "name": "Test",
+        "style": {
+            "label": true
+        },
+        "nodes": [
+            "4bbe9d4edc3c9cb5",
+            "355257907a41f246",
+            "859dc2184c96127d"
+        ],
+        "x": 134,
+        "y": 179,
+        "w": 652,
+        "h": 82
+    },
+    {
+        "id": "cf3aac52710a7d7f",
+        "type": "modbus-client",
+        "name": "",
+        "clienttype": "serial",
+        "bufferCommands": true,
+        "stateLogEnabled": false,
+        "queueLogEnabled": false,
+        "failureLogEnabled": true,
+        "tcpHost": "127.0.0.1",
+        "tcpPort": "502",
+        "tcpType": "DEFAULT",
+        "serialPort": "COM4",
+        "serialType": "RTU",
+        "serialBaudrate": "9600",
+        "serialDatabits": "8",
+        "serialStopbits": "1",
+        "serialParity": "none",
+        "serialConnectionDelay": "100",
+        "serialAsciiResponseStartDelimiter": "0x3A",
+        "unit_id": 1,
+        "commandDelay": 1,
+        "clientTimeout": 1000,
+        "reconnectOnTimeout": true,
+        "reconnectTimeout": 2000,
+        "parallelUnitIdsAllowed": true,
+        "showErrors": false,
+        "showWarnings": true,
+        "showLogs": true
+    },
+    {
+        "id": "08f1fc6fdcd36f10",
+        "type": "global-config",
+        "name": "global-config",
+        "env": []
+    },
+    {
+        "id": "4bbe9d4edc3c9cb5",
+        "type": "inject",
+        "z": "f6f2187d.f17ca8",
+        "g": "0a76adf9b4512182",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "1",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 250,
+        "y": 220,
+        "wires": [
+            [
+                "859dc2184c96127d"
+            ]
+        ]
+    },
+    {
+        "id": "355257907a41f246",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "g": "0a76adf9b4512182",
+        "name": "debug 1",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 680,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "859dc2184c96127d",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "g": "0a76adf9b4512182",
+        "name": "function 1",
+        "func": "context.counter = context.counter || 0;\n\n// Increment the counter in the payload\nmsg.payload = context.counter++;\nif (context.counter > 10) {\n    context.counter = 0;\n}\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 480,
+        "y": 220,
+        "wires": [
+            [
+                "355257907a41f246"
+            ]
+        ]
+    }
+]
